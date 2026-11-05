@@ -1,56 +1,605 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gaurav Singh | Android Developer & Creator</title>
+  <meta name="description" content="Portfolio of Gaurav Singh — Android developer crafting mindful utilities, finance tools, and casual games." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #0c0d11;
+      --card-bg: rgba(23, 25, 34, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover-border: rgba(255, 255, 255, 0.2);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.15);
+      --pill-bg: rgba(255, 255, 255, 0.05);
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-heading: 'Space Grotesk', sans-serif;
+    }
 
-    <title>Gaurav Singh | Flutter Developer</title>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <link rel="stylesheet" href="style.css">
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    /* Ambient background gradient effect */
+    .ambient-glow {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1000px;
+      height: 500px;
+      background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.08), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-    <script src="https://kit.fontawesome.com/704ff50790.js" crossorigin="anonymous"></script>
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
 
+    /* Navigation */
+    header {
+      padding: 32px 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 80px 0 40px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: var(--pill-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+    }
+
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.3rem, 5vw, 3.8rem);
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #f3f4f6 30%, #9ca3af 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      margin-top: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #ffffff;
+      color: #0c0d11;
+      border: 1px solid #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: #e5e7eb;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--pill-bg);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--card-hover-border);
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-1px);
+    }
+
+    /* Sections */
+    section {
+      padding: 60px 0;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 32px;
+    }
+
+    /* About Card */
+    .about-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 32px;
+      backdrop-filter: blur(12px);
+    }
+
+    .about-card p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-size: 1.02rem;
+      line-height: 1.75;
+    }
+
+    .about-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* App Grid */
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .app-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .app-card:hover {
+      border-color: var(--card-hover-border);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .app-icon-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .app-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--pill-bg);
+      color: var(--text-muted);
+      border: 1px solid var(--card-border);
+    }
+
+    .app-card h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .app-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 24px;
+    }
+
+    .app-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      transition: gap 0.2s ease;
+      margin-top: auto;
+    }
+
+    .app-link:hover {
+      gap: 9px;
+    }
+
+    /* Resume Section */
+    .resume-box {
+      background: linear-gradient(180deg, var(--card-bg) 0%, rgba(20, 22, 30, 0.4) 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    @media (min-width: 640px) {
+      .resume-box {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .resume-details h3 {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+
+    .resume-details p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    .resume-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Footer */
+    footer {
+      padding: 50px 0 40px;
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-main);
+    }
+  </style>
 </head>
-
 <body>
 
-    <div class="card">
+  <div class="ambient-glow"></div>
 
-        <img src="IMG_20200816_203217_279.jpg" class="profile-img" alt="Gaurav Singh">
+  <div class="container">
+    <header>
+      <a href="#" class="logo">Gaurav Singh</a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#apps">Apps</a>
+        <a href="#resume">Resume</a>
+      </nav>
+    </header>
 
-        <h1>Gaurav Singh</h1>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Indie Developer & Software Engineer
+      </div>
+      <h1>Building clean, focused<br><span>mobile experiences.</span></h1>
+      <p>
+        I design and build lightweight, intuitive Android applications that solve real-world daily problems — from smart financial logging and productivity tools to audio therapy and interactive games.
+      </p>
+      <div class="hero-actions">
+        <a href="#apps" class="btn btn-primary">Explore Live Apps</a>
+        <a href="#resume" class="btn btn-secondary">View Resume</a>
+      </div>
+    </section>
 
-        <h3>Senior Flutter Developer</h3>
-
+    <!-- About Section -->
+    <section id="about">
+      <h2 class="section-title">About Me</h2>
+      <p class="section-desc">Philosophy, engineering focus, and background</p>
+      <div class="about-card">
         <p>
-            Passionate Mobile Application Developer specializing in Flutter with
-            experience in building scalable, high-performance Android and iOS
-            applications. Dedicated to creating intuitive user experiences,
-            writing clean architecture, and delivering production-ready software.
+          Hi, I’m <strong>Gaurav Singh</strong>. I am a software engineer dedicated to creating high-performance, clutter-free mobile applications.
         </p>
+        <p>
+          I focus on intentional software architecture — prioritizing user privacy, instant startup performance, and intuitive UI interactions over unnecessary complexity. My work spans personal finance tools with zero-friction entry, focus timers, mental health audio apps, and casual arcade games.
+        </p>
+        <p>
+          Every app is built with a deep emphasis on responsiveness, clean visual hierarchy, and practical everyday utility.
+        </p>
+      </div>
+    </section>
 
-        <div class="social-links">
+    <!-- Live Apps Section -->
+    <section id="apps">
+      <h2 class="section-title">Live on Google Play</h2>
+      <p class="section-desc">Production applications actively maintained on the Play Store</p>
 
-            <a href="https://twitter.com/gru786" target="_blank" class="twitter">
-                <i class="fab fa-twitter"></i>
-            </a>
+      <div class="apps-grid">
 
-            <a href="https://github.com/gru786" target="_blank" class="github">
-                <i class="fab fa-github"></i>
-            </a>
-
-            <a href="https://linkedin.com/in/gru786" target="_blank" class="linkedin">
-                <i class="fab fa-linkedin-in"></i>
-            </a>
-
+        <!-- OneTap -->
+        <div class="app-card">
+          <div>
+            <div class="app-header">
+              <div class="app-icon-badge">📊</div>
+              <span class="app-tag">Finance</span>
+            </div>
+            <h3>OneTap: Expense Tracker</h3>
+            <p>
+              Zero-effort personal finance logging. Visualizes category spending with clear charts, recurring bill tracking, and strict privacy without requiring bank synchronization.
+            </p>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.gauravsingh.onetap" target="_blank" rel="noopener noreferrer" class="app-link">
+            Get on Google Play &rarr;
+          </a>
         </div>
 
-    </div>
+        <!-- Streamnest -->
+        <div class="app-card">
+          <div>
+            <div class="app-header">
+              <div class="app-icon-badge">📺</div>
+              <span class="app-tag">Media</span>
+            </div>
+            <h3>Streamnest: Stream Player</h3>
+            <p>
+              A responsive, high-performance multimedia stream player built for smooth live playback, organized channel access, and fluid controls.
+            </p>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.gauravsingh.streamnest" target="_blank" rel="noopener noreferrer" class="app-link">
+            Get on Google Play &rarr;
+          </a>
+        </div>
+
+        <!-- Harmonia -->
+        <div class="app-card">
+          <div>
+            <div class="app-header">
+              <div class="app-icon-badge">🎵</div>
+              <span class="app-tag">Wellness</span>
+            </div>
+            <h3>Harmonia: Brown Noise & Beats</h3>
+            <p>
+              Sound therapy designed for deep sleep and focus. Features deep brown noise, color noise masking, binaural beats, and sacred Solfeggio frequencies.
+            </p>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.gauravsingh.harmonia_sound_therapy" target="_blank" rel="noopener noreferrer" class="app-link">
+            Get on Google Play &rarr;
+          </a>
+        </div>
+
+        <!-- Pomodoro Timer -->
+        <div class="app-card">
+          <div>
+            <div class="app-header">
+              <div class="app-icon-badge">⏱️</div>
+              <span class="app-tag">Productivity</span>
+            </div>
+            <h3>Pomodoro Timer</h3>
+            <p>
+              A clean, distraction-free interval timer for studying and work sessions based on the Pomodoro technique to maintain sustained focus.
+            </p>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.gauravsingh.pomodoro" target="_blank" rel="noopener noreferrer" class="app-link">
+            Get on Google Play &rarr;
+          </a>
+        </div>
+
+        <!-- Worth It -->
+        <div class="app-card">
+          <div>
+            <div class="app-header">
+              <div class="app-icon-badge">💡</div>
+              <span class="app-tag">Finance</span>
+            </div>
+            <h3>Worth It: Budget & Expense</h3>
+            <p>
+              A mindful budgeting calculator and spending evaluator that shifts your perspective from cost to true personal value before making purchases.
+            </p>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.gauravsingh.worth_it" target="_blank" rel="noopener noreferrer" class="app-link">
+            Get on Google Play &rarr;
+          </a>
+        </div>
+
+        <!-- MotivateMe -->
+        <div class="app-card">
+          <div>
+            <div class="app-header">
+              <div class="app-icon-badge">✨</div>
+              <span class="app-tag">Lifestyle</span>
+            </div>
+            <h3>MotivateMe</h3>
+            <p>
+              Daily inspiration and positive mindset reminders. Lightweight, quick-loading, and designed with a distraction-free aesthetic.
+            </p>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.gauravsingh.motivate_me" target="_blank" rel="noopener noreferrer" class="app-link">
+            Get on Google Play &rarr;
+          </a>
+        </div>
+
+        <!-- Run Gargi Run -->
+        <div class="app-card">
+          <div>
+            <div class="app-header">
+              <div class="app-icon-badge">🏃‍♀️</div>
+              <span class="app-tag">Arcade Game</span>
+            </div>
+            <h3>Run Gargi Run</h3>
+            <p>
+              A fast-paced endless runner inspired by real-life hustle. Dodge deadlines, avoid meetings, collect focus points, and chase dreams.
+            </p>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.gauravsingh.rungargirun" target="_blank" rel="noopener noreferrer" class="app-link">
+            Get on Google Play &rarr;
+          </a>
+        </div>
+
+        <!-- Dhurandhar -->
+        <div class="app-card">
+          <div>
+            <div class="app-header">
+              <div class="app-icon-badge">🎮</div>
+              <span class="app-tag">Gaming</span>
+            </div>
+            <h3>Dhurandhar - The Game</h3>
+            <p>
+              An engaging arcade mobile experience featuring action challenges and responsive touchscreen gameplay.
+            </p>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.gauravsingh.dhurandhargame" target="_blank" rel="noopener noreferrer" class="app-link">
+            Get on Google Play &rarr;
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume">
+      <h2 class="section-title">Resume</h2>
+      <p class="section-desc">Experience, technical competencies, and project history</p>
+      
+      <div class="resume-box">
+        <div class="resume-details">
+          <h3>Gaurav Singh — Curriculum Vitae</h3>
+          <p>Available for mobile engineering and full-stack software development roles.</p>
+        </div>
+        <div class="resume-actions">
+          <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            View PDF
+          </a>
+          <a href="resume.pdf" download="Gaurav_Singh_Resume.pdf" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-links">
+        <a href="https://play.google.com/store/apps/developer?id=GauravSingh&hl=en" target="_blank" rel="noopener noreferrer">Google Play Console</a>
+        <a href="https://github.com/gru786" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:shahgaurav786@gmail.com">Contact</a>
+      </div>
+      <p>&copy; Gaurav Singh. Built and hosted on GitHub Pages.</p>
+    </footer>
+  </div>
 
 </body>
-
 </html>
